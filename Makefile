@@ -1,11 +1,13 @@
-obj-m += panel-ampire-am4001280atzqw00h.o
+obj-m := panel-ampire-am4001280atzqw00h.o
 
-KDIR ?= "/lib/modules/$(shell uname -r)/build"
 PWD := $(shell pwd)
 .PHONY = check
 
 all:
-	make -C $(KDIR) M=$(PWD) modules_install
+	$(MAKE) -C $(KERNEL_SRC) M=$(PWD) 
+
+modules_install:
+    $(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules_install
 
 clean:
     rm -f *.o *~ core .depend .*.cmd *.ko *.mod.c
@@ -14,4 +16,5 @@ clean:
 
 cfiles = $(obj-m:.o=.c)
 check: $(cfiles)
-	$(KDIR)/scripts/checkpatch.pl -f --max-line-length=100 $<
+	$(KERNEL_SRC)/scripts/checkpatch.pl -f --max-line-length=100 $<
+
