@@ -4,7 +4,7 @@ PWD := $(shell pwd)
 .PHONY = check
 
 all:
-	$(MAKE) -C $(KERNEL_SRC) M=$(PWD) 
+    $(MAKE) -C $(KERNEL_SRC) M=$(PWD) 
 
 modules_install:
     $(MAKE) -C $(KERNEL_SRC) M=$(PWD) modules_install
